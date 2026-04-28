@@ -98,7 +98,7 @@ export function parseCookies(cookiesString: string): Cookie[] {
 	const cookies: Cookie[] = []
 
 	for (const cookieStr of cookieStrArray) {
-		const separatorIndex = cookieStr.indexOf("=")
+		const separatorIndex = cookieStr.indexOf("=", 1)
 
 		if (separatorIndex < 0) {
 			continue

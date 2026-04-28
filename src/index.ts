@@ -500,7 +500,7 @@ export class Authenticator {
 				nonce?: string
 			}
 			this.logger.debug({ msg: "Parsed state param to extract redirect uri", parsedState })
-			return parsedState.redirect_uri
+			return parsedState.redirect_uri || ""
 		}
 		return state
 	}
