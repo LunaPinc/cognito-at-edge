@@ -5,6 +5,9 @@ on: [pull_request, push]
 jobs:
   ci-static-checks:
     runs-on: ubuntu-latest
+    env:
+      # Prettier cannot resolve prettier-plugin-organize-imports under Yarn's default PnP linker
+      YARN_NODE_LINKER: node-modules
     permissions:
       contents: read
     steps:
