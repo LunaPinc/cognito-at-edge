@@ -5,6 +5,9 @@ on: [pull_request, push]
 jobs:
   ci-static-checks:
     runs-on: ubuntu-latest
+    env:
+      # Prettier cannot resolve prettier-plugin-organize-imports under Yarn's default PnP linker
+      YARN_NODE_LINKER: node-modules
     permissions:
       contents: read
     steps:
@@ -16,11 +19,13 @@ jobs:
         uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
         with:
           node-version-file: 'package.json'
+      - name: Enable Yarn
+        run: corepack enable
       - name: Install dependencies
-        run: npm ci
+        run: yarn install --immutable
       - name: Build code
-        run: npm run build
+        run: yarn build
       - name: Run linters
-        run: npm run lint
+        run: yarn lint
       - name: Run unit tests
-        run: npm run test
+        run: yarn test
